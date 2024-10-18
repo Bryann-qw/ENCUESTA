@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta de Estilo de Liderazgo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Encuesta de Estilo de Liderazgo</h2>
+        <form id="leadershipForm">
+            <!-- Pregunta 1 -->
+            <div class="question">
+                <label for="decision-making">¿Cómo prefieres tomar decisiones?</label>
+                <input type="radio" name="decision-making" value="Autocrático" required> Autocrático (Tomar decisiones sin consultar al equipo)<br>
+                <input type="radio" name="decision-making" value="Democrático"> Democrático (Escuchar a todos antes de decidir)<br>
+                <input type="radio" name="decision-making" value="Laissez-faire"> Laissez-faire (Delegar completamente al equipo)
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div class="question">
+                <label for="motivation">¿Cómo motivas a tu equipo?</label>
+                <input type="radio" name="motivation" value="Autocrático" required> Reconocimiento público de logros<br>
+                <input type="radio" name="motivation" value="Democrático"> Dar más responsabilidad<br>
+                <input type="radio" name="motivation" value="Laissez-faire"> Dar total libertad de acción
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div class="question">
+                <label for="feedback">¿Con qué frecuencia das retroalimentación?</label>
+                <input type="radio" name="feedback" value="Autocrático" required> Frecuentemente, en cada tarea importante<br>
+                <input type="radio" name="feedback" value="Democrático"> Moderadamente, en momentos clave<br>
+                <input type="radio" name="feedback" value="Laissez-faire"> Rara vez, sólo cuando es estrictamente necesario
+            </div>
+
+            <!-- Pregunta 4 -->
+            <div class="question">
+                <label for="team-role">¿Cómo ves tu rol dentro del equipo?</label>
+                <input type="radio" name="team-role" value="Autocrático" required> Un controlador que supervisa de cerca cada paso<br>
+                <input type="radio" name="team-role" value="Democrático"> Un guía que acompaña y orienta al equipo<br>
+                <input type="radio" name="team-role" value="Laissez-faire"> Un delegador que deja que el equipo tome la iniciativa
+            </div>
+
+            <!-- Pregunta 5 -->
+            <div class="question">
+                <label for="conflict-resolution">¿Cómo manejas los conflictos en el equipo?</label>
+                <input type="radio" name="conflict-resolution" value="Autocrático" required> Resolutivo que toma decisiones rápidas<br>
+                <input type="radio" name="conflict-resolution" value="Democrático"> Mediador que escucha ambas partes<br>
+                <input type="radio" name="conflict-resolution" value="Laissez-faire"> Delegador que deja que el equipo resuelva el conflicto por su cuenta
+            </div>
+
+            <!-- Pregunta 6 -->
+            <div class="question">
+                <label for="task-delegation">¿Cómo delegas las tareas en tu equipo?</label>
+                <input type="radio" name="task-delegation" value="Autocrático" required> Yo asigno todas las tareas detalladamente<br>
+                <input type="radio" name="task-delegation" value="Democrático"> Permito que el equipo elija sus propias responsabilidades<br>
+                <input type="radio" name="task-delegation" value="Laissez-faire"> Delego completamente sin involucrarme mucho
+            </div>
+
+            <!-- Pregunta 7 -->
+            <div class="question">
+                <label for="change-management">¿Cómo gestionas los cambios dentro del equipo o la organización?</label>
+                <input type="radio" name="change-management" value="Autocrático" required> Tomo decisiones rápidas sin consultar mucho<br>
+                <input type="radio" name="change-management" value="Democrático"> Escucho al equipo antes de decidir cómo implementar cambios<br>
+                <input type="radio" name="change-management" value="Laissez-faire"> Dejo que el equipo gestione el cambio por sí mismo
+            </div>
+
+            <!-- Pregunta 8 -->
+            <div class="question">
+                <label for="strategic-planning">¿Cómo participas en la planificación estratégica?</label>
+                <input type="radio" name="strategic-planning" value="Autocrático" required> Yo establezco el plan estratégico sin mucha consulta<br>
+                <input type="radio" name="strategic-planning" value="Democrático"> Involucro al equipo en el desarrollo del plan<br>
+                <input type="radio" name="strategic-planning" value="Laissez-faire"> Dejo que el equipo defina los objetivos estratégicos
+            </div>
+
+            <!-- Botón de envío -->
+            <button type="button" onclick="submitForm()">Enviar Encuesta</button>
+        </form>
+
+        <!-- Resultado -->
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function submitForm() {
+            var form = document.forms['leadershipForm'];
+            var autocraticCount = 0;
+            var democraticCount = 0;
+            var laissezFaireCount = 0;
+
+            // Contar respuestas
+            for (var i = 0; i < form.length; i++) {
+                if (form[i].checked) {
+                    if (form[i].value === "Autocrático") {
+                        autocraticCount++;
+                    } else if (form[i].value === "Democrático") {
+                        democraticCount++;
+                    } else if (form[i].value === "Laissez-faire") {
+                        laissezFaireCount++;
+                    }
+                }
+            }
+
+            // Determinar tipo de liderazgo
+            var resultText = "";
+            if (autocraticCount > democraticCount && autocraticCount > laissezFaireCount) {
+                resultText = "Tu estilo de liderazgo es Autocrático. Prefieres tener el control total y tomar decisiones sin mucha consulta.";
+            } else if (democraticCount > autocraticCount && democraticCount > laissezFaireCount) {
+                resultText = "Tu estilo de liderazgo es Democrático. Prefieres tomar decisiones basadas en la participación del equipo y fomentar la colaboración.";
+            } else if (laissezFaireCount > autocraticCount && laissezFaireCount > democraticCount) {
+                resultText = "Tu estilo de liderazgo es Laissez-faire. Prefieres delegar el control y permitir que el equipo se gestione por sí mismo.";
+            } else {
+                resultText = "Tu estilo de liderazgo parece estar equilibrado entre varios enfoques, lo cual puede ser flexible según la situación.";
+            }
+
+            // Mostrar resultado
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = "<strong>Resultado:</strong> " + resultText;
+            resultDiv.style.display = "block";
+        }
+    </script>
+</body>
+</html>
